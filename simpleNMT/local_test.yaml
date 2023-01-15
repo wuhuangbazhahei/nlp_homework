@@ -1,0 +1,42 @@
+name: "transformer_iwslt14_ende_bpe"
+
+data:
+    train: "data/train.bpe.32000"
+    dev: "data/valid.bpe.32000"
+    test: "data/test.bpe.32000"
+    src:
+        lang: "en"
+        voc_file: "data/bpe_vocab.txt"
+
+    trg:
+        lang: "de"
+        voc_file: "data/bpe_vocab.txt"
+
+testing:
+    beam_size: 5
+    beam_alpha: 1.0
+    batch_size: 1024
+    max_output_length: 100
+    eval_metrics: ["ppl"]
+
+training:
+    random_seed: 42
+    optimizer: "adam"
+    adam_betas: [0.9, 0.999]
+    patience: 5
+    learning_rate: 0.0003
+    weight_decay: 0.0
+    label_smoothing: 0.1
+    batch_size: 4096
+    epochs: 100
+    logging_freq: 100
+    model_dir: "models/transformer_iwslt14_ende_bpe"
+    shuffle: True
+    use_cuda: True
+    keep_best_ckpts: 5
+
+model:
+    d_model: 512
+    d_ff: 2048
+    num_layers: 6
+    num_heads: 8
